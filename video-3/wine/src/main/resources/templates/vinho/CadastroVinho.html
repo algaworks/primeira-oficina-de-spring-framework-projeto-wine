@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/LayoutPadrao">
+	
+<head>
+	<title>Cadastro vinho</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>
+				Cadastro de vinho
+			</h1>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+	
+		<div class="alert  alert-success  alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}" >
+			<button type="button" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+			<span th:text="${mensagem}"></span>
+		</div>
+	
+		<form method="POST" th:object="${vinho}" class="form-vertical  js-form-loading" th:action="@{/vinhos/novo}">
+			<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<th:block th:each="erro : ${#fields.detailedErrors()}">
+					<div>
+						<i class="fa  fa-exclamation-circle"></i> 
+						<span th:text="${erro.message}">Já existe um produto com o nome informado.</span>
+					</div>
+				</th:block>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+				<label for="nome" class="control-label">Nome</label>
+				<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
+			</div>
+	
+			<div class="row">
+				<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('tipo')} ? has-error">
+					<label for="tipo" class="control-label">Tipo</label>
+					<select id="tipo" class="form-control" th:field="*{tipo}">
+						<option value="">Selecione o tipo</option>
+						<option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
+					</select>
+				</div>
+				
+				<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('safra')} ? has-error">
+					<label for="safra" class="control-label">Safra</label>
+					<input id="safra" type="text" class="form-control" th:field="*{safra}"/>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('volume')} ? has-error">
+					<label for="volume" class="control-label">Volume (ml)</label>
+					<input id="volume" type="text" class="form-control" th:field="*{volume}"/>
+				</div>
+				
+				<div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+					<label for="valor" class="control-label">Valor</label>
+					<input id="valor" type="text" class="form-control" th:field="*{valor}"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<button class="btn  btn-primary" type="submit">Salvar</button>
+			</div>
+	
+		</form>
+	</div>
+
+</section>
+</body>
+</html>

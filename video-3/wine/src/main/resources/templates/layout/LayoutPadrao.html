@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<title>Spring e Layout Atacama</title>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/algaworks.min.css}"/>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/wine.css}"/>
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}"/>
+<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+
+<div class="aw-layout-page">
+	
+	<nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar">
+	  <div class="container-fluid">
+
+	    <div class="navbar-header">
+	      <a class="navbar-brand  hidden-xs" href="#">
+	        <img alt="AlgaWorks" th:src="@{/images/logo.png}"/>
+	      </a>
+
+	      <ul class="nav  navbar-nav">
+	        <li>
+	          <a href="#" class="js-sidebar-toggle"><i class="fa  fa-bars"></i></a>
+	        </li>
+	      </ul>
+	    </div>
+
+	    <ul class="nav navbar-nav  navbar-right">
+	    	  <li>
+	    	  	<p class="navbar-text" th:text="${#authentication.name}"></p>
+	    	  </li>
+	    
+	      <li>
+	        <a th:href="@{/logout}"><em class="fa  fa-sign-out"></em></a>
+	      </li> 
+	    </ul>
+
+	  </div>
+	</nav>
+	
+	<aside class="aw-layout-sidebar  js-sidebar">
+		<div class="aw-layout-sidebar__content">
+	
+	    	<nav class="aw-menu  js-menu">
+	      		<ul class="aw-menu__list">
+	        		<li class="aw-menu__item">
+          			<a th:href="@{/vinhos/novo}">
+          				<i class="fa  fa-fw  fa-plus-circle"></i>
+          				<span>Novo vinho</span>
+          			</a>
+	        		</li>
+	        		
+	        		<li class="aw-menu__item" sec:authorize-url="/vinhos">
+          			<a th:href="@{/vinhos}">
+          				<i class="fa  fa-fw  fa-search"></i>
+          				<span>Listagem vinhos</span>
+          			</a>
+	        		</li>
+	      	</ul>
+	    	</nav>
+		</div>
+	</aside>
+	
+	<section class="aw-layout-content  js-content" layout:fragment="conteudo"></section>
+	
+	<footer class="aw-layout-footer  js-content">
+		<div class="container-fluid">
+			<span class="aw-footer-disclaimer">&copy; 2016 AlgaWorks. Todos os direitos reservados.</span>
+		</div>
+	</footer>
+</div>
+<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
+<script th:src="@{/layout/javascripts/algaworks.min.js}"></script>
+
+<th:block layout:fragment="javascript-extra"></th:block>
+
+</body>
+</html>
