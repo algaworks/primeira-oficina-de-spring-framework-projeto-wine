@@ -39,11 +39,6 @@ public class Vinho {
 	@NotNull(message = "Valor é obrigatório")
 	private BigDecimal valor;
 	
-	private String foto;
-	
-	@Transient
-	private String url;
-	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -90,26 +85,6 @@ public class Vinho {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
-	}
-
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	
-	public boolean temFoto() {
-		return !StringUtils.isEmpty(foto);
 	}
 
 	@Override
